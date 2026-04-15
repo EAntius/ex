@@ -1,8 +1,5 @@
 import pyotp
 import time
-from dilithium_py.dilithium import Dilithium5
-import hashlib
-from kyber_py.ml_kem import ML_KEM_1024 as kyber
 
 def generate_totp_secret():
     totp = pyotp.TOTP(pyotp.random_base32())
