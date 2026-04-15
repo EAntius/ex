@@ -6,5 +6,6 @@ from key_tree import KeyTree
 def main():
     kt = KeyTree()
     kt.generateTree("hej")
-    print(kt.tree[0]['dilithium'][0])
+    kt.printtest()
+    print(kt.createProof(2))
 main()
