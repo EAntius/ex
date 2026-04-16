@@ -26,6 +26,10 @@ share/python-wheels/
 *.egg
 MANIFEST
 palcom-trust-key-artifact
+palcom-trust-key-artifact.zip
+package-lock.json
+noce_modules
+
 
 
 # PyInstaller
