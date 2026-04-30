@@ -2,52 +2,70 @@ from dilithium_py.dilithium import Dilithium5
 import hashlib
 from kyber_py.ml_kem import ML_KEM_1024 as kyber
 
+class KeyLeaf:
+    def __init__(self, kem, pair, hash, idx):
+        self.idx = idx
+        self.kem = kem
+        self.pair = pair
+        self.hash = hash
+
+    def proof(self, idx, level, h, res):
+        if (level == 0):
+            if (idx < h):
+                res.append((self.hashcombo(), False))
+            else:
+                res.append((self.hashcombo(), True))
+            return res
+        return res
+
+    def hashcombo(self):
+        return self.hash
+
 class KeyNode:
-    def __init__ (self, leftV, rightV, idx, leaf):
+    def __init__ (self, leftV, rightV, idx):
         self.idx = idx
         self.left = leftV
         self.right = rightV
-        if (not leaf):
-            self.hash = hashlib.sha3_512(self.left.hashcombo() + self.right.hashcombo()).digest()
-        else:
-            self.hash = hashlib.sha3_512(self.left + self.right).digest()
+        self.hash = hashlib.sha3_512(self.left.hashcombo() + self.right.hashcombo()).digest()
+        
 
     def proof(self, idx, level, h, res):
         if (level == 0):
             if (idx < h):
                 res.append((self.left.hashcombo(), False))
             else:
-                res.append((self.left.hashcombo(), True))
+                res.append((self.right.hashcombo(), True))
             return res
         if (idx < h):
+            print(h)
             res = self.left.proof(idx, level - 1, h - h/2, res)
             res.append((self.left.hashcombo(), False))
         else:
+            print(h)
             res = self.right.proof(idx, level - 1, h + h/2, res)
-            res.append((self.left.hashcombo(), True))
+            res.append((self.right.hashcombo(), True))
         return res
 
     def hashcombo(self):
         return self.hash
 
 class KeyTree:
-    def __init__ (self):
+    def __init__ (self, ca_public):
         self.tree = [None] * 1024
         self.root = None
+        self.height = None
+        self.ca_public = ca_public
     #Generate keytree with 1024 key pair leaves : roughly 43 year lifespan with rotation once a month
     
-    def generateTree(self, master_seed):
-        master_seed_bytes = master_seed.encode('utf-8')
+    def generateTree(self, kem_list, hash_list, pair_list, height):
         idx = 0
-        for i in range(512):
+        self.height = height
+        for i in range(2**height):
             # Derive a unique seed for each key pair
-            seed = hashlib.sha3_512(master_seed_bytes).digest()
-            # Generate Dilithium key pair
-            pk, sk = Dilithium5.keygen()
-            node = KeyNode(pk, sk, idx, True)
+            node = KeyLeaf(kem_list[i], pair_list[i], hash_list[i], idx)
             self.tree[idx] = node
             idx += 1
-        h = 512
+        h = 2**height
         h0 = h
         s = 0
         while (h > 0):
@@ -55,7 +73,7 @@ class KeyTree:
                 left = self.tree[2*h0-3]
                 right = self.tree[2*h0-2]
                 # Combine the keys of the left and right child nodes to create the parent node
-                node = KeyNode(left, right, idx, False)
+                node = KeyNode(left, right, idx)
                 self.tree[idx] = node
                 self.root = node
                 break
@@ -63,7 +81,7 @@ class KeyTree:
                 left = self.tree[i + s]
                 right = self.tree[i + s + 1]
                 # Combine the keys of the left and right child nodes to create the parent node
-                node = KeyNode(left, right, idx, False)
+                node = KeyNode(left, right, idx)
                 self.tree[idx] = node 
                 idx += 1 
             s += h
@@ -72,8 +90,8 @@ class KeyTree:
         #i.e every node besides the first needed for proof 
         return self.tree
 
-    def recover():
-        h = 256
+    def recover(self, leaf, proof):
+        h = 2**self.height
         while (h != 1):
             for i in range(0, h, 2):
                 left = self.tree[i]
@@ -84,13 +102,12 @@ class KeyTree:
             h //= 2
         #TODO add parameters to isolate path for the new rotations' merkle proof
         return
-    #TODO Merkle proof
     last_index = -1
     last_proof = None
 
-    def createProof(self, nodeindex):
+    def create_proof(self, nodeindex):
         if (self.last_index == nodeindex): return self.last_proof
-        res = self.root.proof(nodeindex, 8, 256, [])
+        res = self.root.proof(nodeindex, self.height, 2**self.height, [])
         self.last_proof = res
         self.last_index = nodeindex
         return res     

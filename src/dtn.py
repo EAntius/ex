@@ -31,10 +31,10 @@ import dtnsim.path
 
 from perlcompat import die, getopts
 
-MAX_VELOCITY = 10  # maximum node velocity [m/s]
-MIN_VELOCITY = 0  # minimum node velocity [m/s]
+MAX_VELOCITY = 100  # maximum node velocity [m/s]
+MIN_VELOCITY = 60  # minimum node velocity [m/s]
 MIN_PAUSE = 0  # minimum pause time [s]
-MAX_PAUSE = 5 * 60  # maximum pause time [s]
+MAX_PAUSE = 500 * 10  # maximum pause time [s]
 
 def usage():
     prog = os.path.basename(sys.argv[0])
@@ -103,13 +103,13 @@ def main():
     monitor.open()
 
     cls = eval('dtnsim.path.' + path_class)
-    path = cls(npoints=100)
+    path = cls(npoints=10)
     monitor.display_path(path)
-    create_agents(sched, monitor, 'ProPHET', 12, 1, [0], 'graph.Fixed', 'Line')
-    create_agents(sched, monitor, 'CarryOnly', 3, 10, [0], 'graph.CRWP', 'Voronoi')
-    create_agents(sched, monitor, 'ProPHET', 12, 1, [0], 'graph.Fixed', 'Line')
-    #create_agents(sched, monitor, agent_class, nagents, range_, init_infected,
-    #              mobility_class, path)
+    #create_agents(sched, monitor, 'ProPHET', 12, 1, [0], 'graph.Fixed', 'None')
+    #create_agents(sched, monitor, 'CarryOnly', 3, 10, [0], 'graph.CRWP', 'Line')
+    #create_agents(sched, monitor, 'ProPHET', 1, 1, [0], 'graph.Fixed', 'None')
+    create_agents(sched, monitor, agent_class, nagents, range_, init_infected,
+                  mobility_class, path)
     monitor.display_agents()
 
     # the main loop
