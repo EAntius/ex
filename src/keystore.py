@@ -1,7 +1,9 @@
 from dilithium_py.dilithium import Dilithium5
 import hashlib
 from kyber_py.ml_kem import ML_KEM_1024 as kyber
+import os
 from key_tree import KeyTree
+from nfc import NFC
 
 class NipKeyStore:
     class KeyPair:
@@ -94,13 +96,25 @@ class NipKeyStore:
         self.private_enc = private_enc
         return
 
-    def create_identity(self, height):
+    def create_m_identity(self, height):
         self.generate_keys(height)
         self.hash_list()
         kt = KeyTree(self.ca_public)
         kt.generateTree(self.kem_list, self.khash_list, self.pair_list, height)
-        Dilithium5.sign(self.ca_secret, kt.root.hashcombo())
+        signature = Dilithium5.sign(self.ca_secret, kt.root.hashcombo())
+        kt.addsign(signature)
+        self.kem_list = []
+        self.pair_list = []
+        self.khash_list = []
         return kt
+
+    def create_s_identity(self, loc):
+        pk, sk = Dilithium5.keygen()       
+        id = (os.urandom(16).hex() + loc).encode('utf-8')
+        signature = Dilithium5.sign(self.ca_secret, id)
+        nfc = NFC.create_identity(id, self.ca_public, pk, sk, signature)
+        self.service_workers.append(nfc)
+        return nfc
 
 
     

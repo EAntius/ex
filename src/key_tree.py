@@ -54,9 +54,9 @@ class KeyTree:
         self.tree = [None] * 1024
         self.root = None
         self.height = None
+        self.sign = None
         self.ca_public = ca_public
-    #Generate keytree with 1024 key pair leaves : roughly 43 year lifespan with rotation once a month
-    
+
     def generateTree(self, kem_list, hash_list, pair_list, height):
         idx = 0
         self.height = height
@@ -110,7 +110,15 @@ class KeyTree:
         res = self.root.proof(nodeindex, self.height, 2**self.height, [])
         self.last_proof = res
         self.last_index = nodeindex
-        return res     
+        return res
+
+    def check(self, sig, roothash):
+        isvalid = Dilithium5.verify(self.ca_public, roothash, sig)
+        print(isvalid)
+
+
+    def addsign(self, sign):
+        self.signbytes = sign
 
     def printtest(self):
         print(len(self.tree))

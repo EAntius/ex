@@ -21,6 +21,12 @@ pk, sk = Dilithium5.keygen()
 print("Public Key:", pk[:20])
 print("Private Key:", sk[:20])
 
+m = "hej"
+sig = Dilithium5.sign(sk, m.encode('utf-8'))
+print("Signature:", sig[:20])
+is_valid = Dilithium5.verify(pk, m.encode('utf-8'), sig)
+print("Signature valid:", is_valid)
+
 #Kyber key encapsulation
 ek, dk = kyber.keygen()
 key_a, ct = kyber.encaps(ek)
