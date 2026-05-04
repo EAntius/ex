@@ -36,9 +36,10 @@ class NipKeyStore:
         def get_enc(self):
             return self.epair
 
-    def __init__ (self, master_seed):
+    def __init__ (self, master_seed, issuer):
         master_seed_bytes = master_seed.encode('utf-8')
         seed = hashlib.sha3_512(master_seed_bytes).digest()
+        self.issuer = issuer
         self.kem_list = []
         self.pair_list = []
         self.khash_list = []
@@ -99,7 +100,7 @@ class NipKeyStore:
     def create_m_identity(self, height):
         self.generate_keys(height)
         self.hash_list()
-        kt = KeyTree(self.ca_public)
+        kt = KeyTree(self.ca_public, self.issuer)
         kt.generateTree(self.kem_list, self.khash_list, self.pair_list, height)
         signature = Dilithium5.sign(self.ca_secret, kt.root.hashcombo())
         kt.addsign(signature)
@@ -112,8 +113,8 @@ class NipKeyStore:
         pk, sk = Dilithium5.keygen()       
         id = (os.urandom(16).hex() + loc).encode('utf-8')
         signature = Dilithium5.sign(self.ca_secret, id)
-        nfc = NFC.create_identity(id, self.ca_public, pk, sk, signature)
-        self.service_workers.append(nfc)
+        nfc = NFC()
+        nfc_identity = nfc.create_identity(id, self.ca_public, pk, sk, signature, self.issuer)
         return nfc
 
 

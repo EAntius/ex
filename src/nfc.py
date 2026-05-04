@@ -6,26 +6,26 @@ class NFC:
         self.identity = None
         return
 
-    def create_identity(self, id, ca_pub, pub_key, priv_key, signature):
+    def create_identity(self, id, ca_pub, pub_key, priv_key, signature, issuer):
         nfc_credential = {
         "version": 1,
         "credential_type": "NFC_Asymmetric_Authenticator",
 
         "subject": {
-            "tag_id": hashlib.sha_512(id.encode('utf-8')).digest(),
-            "tag_public_key": hashlib.sha_512(pub_key.public_bytes()).digest(),
-            "tag_private-key": hashlib.sha_512(priv_key.private_bytes()).digest()
+            "tag_id": id,
+            "tag_public_key": hashlib.sha3_512(pub_key).digest(),
+            "tag_private-key": hashlib.sha3_512(priv_key).digest()
         },
 
         "issuer": {
-            "ca_id": "Ecosystem-Root-CA",
+            "ca_id": issuer,
             "key_id": "CA-2026-A",
-            "pub_key": hashlib.sha_512(ca_pub.public_bytes()).digest(),
+            "pub_key": hashlib.sha3_512(ca_pub).digest(),
             "signature": signature
         },
 
         "scope": {
-            "ecosystem_id": "NIPRO-DIALYSIS-SKANE",
+            "ecosystem_id": "NIPRO-DIALYSIS",
             "allowed_operations": [
                 "enter_service_mode",
                 "authorize_calibration"
