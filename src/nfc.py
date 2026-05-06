@@ -1,4 +1,5 @@
 import hashlib
+import datetime
 
 class NFC:
 
@@ -29,19 +30,13 @@ class NFC:
             "allowed_operations": [
                 "enter_service_mode",
                 "authorize_calibration"
-            ],
-            "edge_groups": ["EDGE-GROUP-A"]
+            ]
         },
 
         "validity": {
-            "not_before": "2026-01-01T00:00:00Z",
+            "not_before": "2026-01-01T00:00:00Z", #TODO set specific time frame
             "not_after":  "2026-05-31T23:59:59Z"
         },
-
-        "policy": {
-            "offline_allowed": True,
-            "user_presence_required": True
-        }
         }
         self.identity = nfc_credential
         return nfc_credential

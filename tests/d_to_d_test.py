@@ -16,8 +16,8 @@ def main():
     worker_nfc = central.service_workers[0]
     sim_device = SimDevice(machine1_kt)
     sim_device2 = SimDevice(machine2_kt)
-    print(sim_device.authenticate_device(machine2_kt.create_proof(2), machine2_kt.root.hashcombo(), machine2_kt.signbytes))
-    print(sim_device2.authenticate_device(machine1_kt.create_proof(2), machine1_kt.root.hashcombo(), machine1_kt.signbytes))
+    print(sim_device.authenticate_device(machine2_kt.create_proof(machine2_kt.current_node.idx), machine2_kt.current_node.hashcombo(), machine2_kt.root.hashcombo(), machine2_kt.signbytes))
+    print(sim_device2.authenticate_device(machine1_kt.create_proof(machine1_kt.current_node.idx), machine1_kt.current_node.hashcombo(), machine1_kt.root.hashcombo(), machine1_kt.signbytes))
     print(sim_device.authenticate_worker(worker_nfc))
 
 main()

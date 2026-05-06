@@ -5,9 +5,11 @@ class SimDevice:
         self.keytree = KeyTree
         self.id = self.keytree.root
         return
+
     
-    def authenticate_device(self, proof, root, sig):
-        if self.keytree.device_verify(sig, root):
+    
+    def authenticate_device(self, proof, current_hash, root, sig):
+        if self.keytree.device_verify(sig, root) and self.keytree.validate_proof(proof, current_hash, root):
             return True
         else:
             return False
