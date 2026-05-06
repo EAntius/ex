@@ -15,7 +15,7 @@ from keystore import NipKeyStore
 # =========================
 # CONFIGURATION
 # =========================
-M_IDENTITY_SIZES = range(8, 12)   # e.g. test sizes 4..12
+M_IDENTITY_SIZES = range(7, 10)   # e.g. test sizes 4..12
 PROOF_INDEX = random.randint(4, 2**6)
 ROTATE_INDEX = random.randint(4, 2**6)
 
