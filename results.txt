@@ -1,0 +1,59 @@
+create_m_identity k1 (size=2): 0.24956181299967284
+create_m_identity k2 (size=2): 0.28524661700066645
+k1.device_verify(k2): 0.02104254400001082
+k2.device_verify(k1): 0.02162468500137038
+k1.create_proof: 2.9918999643996358e-05
+k2.create_proof: 7.86300006438978e-06
+k1.validate_proof: 3.114500032097567e-05
+create_m_identity k1 (size=3): 0.5540934390010079
+create_m_identity k2 (size=3): 0.8448843469996064
+k1.device_verify(k2): 0.025382044999787468
+k2.device_verify(k1): 0.02843403400038369
+k1.create_proof: 2.678099917829968e-05
+k2.create_proof: 1.5581999832647853e-05
+k1.validate_proof: 3.9603000914212316e-05
+k2.validate_proof: 5.31919995410135e-05
+create_m_identity k1 (size=4): 1.1070546800001466
+create_m_identity k2 (size=4): 0.9542777349997777
+k1.device_verify(k2): 0.01765683699886722
+k2.device_verify(k1): 0.017854448000434786
+k1.create_proof: 7.58399983169511e-06
+k2.create_proof: 3.913999535143375e-06
+k1.validate_proof: 2.0397001208039e-05
+k2.validate_proof: 9.999999747378752e-06
+create_m_identity k1 (size=2): 0.29035467200083076
+create_m_identity k1 (size=3): 0.4563642070006608
+create_m_identity k1 (size=4): 0.7203367279998929
+sim_device.authenticate_device: 0.02206393999949796
+sim_device2.authenticate_device: 0.01903029200002493
+sim_device.authenticate_worker: 0.02004447400031495
+create_m_identity k1 (size=2): 0.28342373200030124
+create_m_identity k2 (size=2): 0.38684378799916885
+k1.device_verify(k2): 0.028324873999736155
+k2.device_verify(k1): 0.022868587000630214
+k1.create_proof: 1.764399894454982e-05
+k2.create_proof: 6.025999027770013e-06
+k1.validate_proof: 2.908999886130914e-05
+k2.validate_proof: 1.6105999748106115e-05
+create_m_identity k1 (size=3): 0.4435755569993489
+create_m_identity k2 (size=3): 0.6108704510006646
+k1.device_verify(k2): 0.021920669998507947
+k2.device_verify(k1): 0.020873041999948327
+k1.create_proof: 1.4974999430705793e-05
+k2.create_proof: 6.5420008468208835e-06
+k1.validate_proof: 2.8808999559259973e-05
+k2.validate_proof: 1.785200038284529e-05
+create_m_identity k1 (size=4): 1.2567711390001932
+create_m_identity k2 (size=4): 0.8624822439996933
+k1.device_verify(k2): 0.036103574000662775
+k2.device_verify(k1): 0.03455268200013961
+k1.create_proof: 1.9363000319572166e-05
+k2.create_proof: 1.72099989868002e-05
+k1.validate_proof: 0.0001283229994442081
+k2.validate_proof: 4.376700053398963e-05
+create_m_identity k1 (size=2): 0.2156798929991055
+create_m_identity k1 (size=3): 0.35782564300097874
+create_m_identity k1 (size=4): 1.0173794330003147
+sim_device.authenticate_device: 0.019044331000259263
+sim_device2.authenticate_device: 0.01995225499922526
+sim_device.authenticate_worker: 0.02075126999989152

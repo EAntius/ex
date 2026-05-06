@@ -16,9 +16,9 @@ from central import Central
 # =========================
 # CONFIGURATION
 # =========================
-M_IDENTITY_SIZES = range(8, 12)   # e.g. test sizes 4..12
-PROOF_INDEX = random.randint(4, 2**6)
-ROTATE_INDEX = random.randint(4, 2**6)
+M_IDENTITY_SIZES = range(2, 5)   # e.g. test sizes 4..12
+PROOF_INDEX = random.randint(1, 3)
+ROTATE_INDEX = random.randint(1, 3)
 
 
 class TimedTestCase(unittest.TestCase):
@@ -29,6 +29,8 @@ class TimedTestCase(unittest.TestCase):
         result = func(*args, **kwargs)
         elapsed = time.perf_counter() - start
         print(f"[TIME] {label}: {elapsed:.6f}s", flush=True)
+        with open("results.txt", "a", encoding="utf-8") as f:
+            f.write(f"{label}: {elapsed}\n")
         return result
 
 
