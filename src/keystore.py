@@ -49,7 +49,8 @@ class NipKeyStore:
         return
 
     def generate_keys(self, height):
-        for x in range(2**height):
+        r = height
+        for i in range(2**r):
             kyber_key = kyber.keygen()
             self.kem_list.append(kyber_key)
             spk, ssk = Dilithium5.keygen()

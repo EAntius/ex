@@ -9,13 +9,7 @@ class KeyLeaf:
         self.pair = pair
         self.hash = hash
 
-    def proof(self, idx, level, h, res):
-        if (level == 0):
-            if (idx < h):
-                res.append((self.hashcombo(), False))
-            else:
-                res.append((self.hashcombo(), True))
-            return res
+    def proof(self, idx, level, res):
         return res
 
     def hashcombo(self):
@@ -29,65 +23,53 @@ class KeyNode:
         self.hash = hashlib.sha3_512(self.left.hashcombo() + self.right.hashcombo()).digest()
         
 
-    def proof(self, idx, level, h, res):
+    def proof(self, idx, level, res):
+        #print(self.idx)
         if (level == 0):
-            if (idx < h):
-                res.append((self.left.hashcombo(), False))
-            else:
-                res.append((self.right.hashcombo(), True))
             return res
-        if (idx < h):
-            res = self.left.proof(idx, level - 1, h - h/2, res)
-            res.append((self.left.hashcombo(), False))
+        bit = (idx >> (level - 1)) & 1
+        if bit == 0:
+            res.append((self.right.hashcombo(), False))
+            return self.left.proof(idx, level-1, res)
         else:
-            res = self.right.proof(idx, level - 1, h + h/2, res)
-            res.append((self.right.hashcombo(), True))
-        return res
+            res.append((self.left.hashcombo(), True))
+            return self.right.proof(idx, level-1, res)
 
     def hashcombo(self):
         return self.hash
 
 class KeyTree:
     def __init__ (self, ca_public, issuer):
-        self.tree = [None] * 1024
+        self.tree = []
         self.root = None
         self.height = None
         self.sign = None
         self.ca_public = ca_public
         self.issuer = issuer
         self.worker = []
+        self.current_node = None
 
     def generateTree(self, kem_list, hash_list, pair_list, height):
         idx = 0
         self.height = height
-        for i in range(2**height):
+        level = [
             # Derive a unique seed for each key pair
-            node = KeyLeaf(kem_list[i], pair_list[i], hash_list[i], idx)
-            self.tree[idx] = node
-            idx += 1
-        h = 2**height
-        h0 = h
-        s = 0
-        while (h > 0):
-            if (h == 1):
-                left = self.tree[2*h0-3]
-                right = self.tree[2*h0-2]
-                # Combine the keys of the left and right child nodes to create the parent node
-                node = KeyNode(left, right, idx)
-                self.tree[idx] = node
-                self.root = node
-                break
-            for i in range(0, h, 2):
-                left = self.tree[i + s]
-                right = self.tree[i + s + 1]
-                # Combine the keys of the left and right child nodes to create the parent node
-                node = KeyNode(left, right, idx)
-                self.tree[idx] = node 
-                idx += 1 
-            s += h
-            h //= 2      
-        #TODO remove all nodes irrelevant
-        #i.e every node besides the first needed for proof 
+            KeyLeaf(kem_list[i], pair_list[i], hash_list[i], idx)
+            for i in range((2**height))
+            ]
+        self.tree = level[:]
+        self.current_node = self.tree[0]
+
+        for _ in range (height):
+            level_x = []
+            for i in range(0, len(level), 2):
+                node = KeyNode(level[i], level[i+1], idx)
+                level_x.append(node)
+                self.tree.append(node)
+            level = level_x
+        self.root = self.tree[-1]
+        #print(self.tree)
+        #print(len(self.tree))
         return self.tree
 
     def recover(self, leaf, proof):
@@ -107,16 +89,33 @@ class KeyTree:
 
     def create_proof(self, nodeindex):
         if (self.last_index == nodeindex): return self.last_proof
-        res = self.root.proof(nodeindex, self.height, 2**self.height, [])
+        res = self.root.proof(nodeindex, self.height, [])
         self.last_proof = res
         self.last_index = nodeindex
         return res
+
+    def validate_proof(self, proof, leafhash, roothash):
+        h = leafhash
+        for p_hash, p_isLeft in reversed(proof):
+            if (p_isLeft):
+                h = hashlib.sha3_512(p_hash + h).digest()                
+            else:
+                h = hashlib.sha3_512(h + p_hash).digest()   
+        return h == roothash
 
     def device_verify(self, sig, roothash):
         isvalid = Dilithium5.verify(self.ca_public, roothash, sig)
         if (isvalid):
             return True
         return False
+
+    def rotate(self, idx):
+        #Temporary version
+        if (idx < 0 or idx >= 2**self.height):
+            raise ValueError("Invalid index for rotation")
+        self.current_node = self.tree[idx]
+        #TODO add parameters to isolate path for the new rotations' merkle proof
+        
 
     def worker_verify(self, issuer, sig, tag_id):
         isvalid = Dilithium5.verify(self.ca_public, tag_id, sig)
