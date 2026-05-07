@@ -16,9 +16,9 @@ from central import Central
 # =========================
 # CONFIGURATION
 # =========================
-M_IDENTITY_SIZES = range(2, 5)   # e.g. test sizes 4..12
-PROOF_INDEX = random.randint(1, 3)
-ROTATE_INDEX = random.randint(1, 3)
+M_IDENTITY_SIZES = range(8, 11)   # e.g. test sizes 4..12
+PROOF_INDEX = random.randint(0, 2**8)
+ROTATE_INDEX = random.randint(0, 2**8)
 
 
 class TimedTestCase(unittest.TestCase):
@@ -47,38 +47,36 @@ class TestNipKeyStore(TimedTestCase):
         print(f"[TIME] setUp (NipKeyStore init): {elapsed:.6f}s", flush=True)
 
     def test_user_verification(self):
-        machine1_kt = self.central.machines[0]
-        machine2_kt = self.central.machines[1]
+        machine1 = self.central.machines[0]
+        machine2 = self.central.machines[1]
         worker_nfc = self.central.service_workers[0]
-        sim_device = SimDevice(machine1_kt)
-        sim_device2 = SimDevice(machine2_kt)
-        proof1 = machine1_kt.create_proof(machine1_kt.current_node.idx)
-        proof2 = machine2_kt.create_proof(machine2_kt.current_node.idx)
+        proof1 = machine1.keytree.create_proof()
+        proof2 = machine2.keytree.create_proof()
 
         self.assertTrue(
             self.timed(
-                "sim_device.authenticate_device",
-                sim_device.authenticate_device,
+                "machine.authenticate_device (size=8)",
+                machine1.authenticate_device,
                 proof2,
-                machine2_kt.current_node.hashcombo(),
-                machine2_kt.root.hashcombo(),
-                machine2_kt.signbytes,
+                machine2.keytree.current_node.hashcombo(),
+                machine2.keytree.root.hashcombo(),
+                machine2.keytree.signbytes,
             )
         )    
         self.assertTrue(
             self.timed(
-                "sim_device2.authenticate_device",
-                sim_device2.authenticate_device,
+                "machine2.authenticate_device (size=8)",
+                machine2.authenticate_device,
                 proof1,
-                machine1_kt.current_node.hashcombo(),
-                machine1_kt.root.hashcombo(),
-                machine1_kt.signbytes,
+                machine1.keytree.current_node.hashcombo(),
+                machine1.keytree.root.hashcombo(),
+                machine1.keytree.signbytes,
             )
         )
         self.assertTrue(
             self.timed(
-                "sim_device.authenticate_worker",
-                sim_device.authenticate_worker,
+                "machine.authenticate_worker (size=8)",
+                machine1.authenticate_worker,
                 worker_nfc,
             )
         )

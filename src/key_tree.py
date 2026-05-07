@@ -46,7 +46,6 @@ class KeyTree:
         self.sign = None
         self.ca_public = ca_public
         self.issuer = issuer
-        self.worker = []
         self.current_node = None
 
     def generateTree(self, kem_list, hash_list, pair_list, height):
@@ -87,11 +86,11 @@ class KeyTree:
     last_index = -1
     last_proof = None
 
-    def create_proof(self, nodeindex):
-        if (self.last_index == nodeindex): return self.last_proof
-        res = self.root.proof(nodeindex, self.height, [])
+    def create_proof(self):
+        if (self.last_index == self.current_node.idx): return self.last_proof
+        res = self.root.proof(self.current_node.idx, self.height, [])
         self.last_proof = res
-        self.last_index = nodeindex
+        self.last_index = self.current_node.idx
         return res
 
     def validate_proof(self, proof, leafhash, roothash):
@@ -119,20 +118,13 @@ class KeyTree:
 
     def worker_verify(self, issuer, sig, tag_id):
         isvalid = Dilithium5.verify(self.ca_public, tag_id, sig)
-        if (isvalid and tag_id in self.worker and issuer == self.issuer):
+        if (isvalid and tag_id and issuer == self.issuer):
             #TODO add valid time as well
             return True
         return False
 
     def addsign(self, sign):
         self.signbytes = sign
-
-    def addworker(self, id):
-        self.worker.append(id)
-        return id
-    
-    def removeworker(self, id):
-        self.worker.remove(id)
 
 
 

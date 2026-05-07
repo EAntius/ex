@@ -1,5 +1,6 @@
 from keystore import NipKeyStore
 from nfc import NFC
+from sim_device import SimDevice
 
 class Central:
     def __init__(self, master_seed):
@@ -9,7 +10,8 @@ class Central:
 
     def register_machine(self):
         kt = self.keystore.create_m_identity(8) 
-        self.machines.append(kt)
+        simdev = SimDevice(kt)
+        self.machines.append(simdev)
 
     def register_worker(self):
         nfc = self.keystore.create_s_identity("Skane")
