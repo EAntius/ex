@@ -67,8 +67,6 @@ class KeyTree:
                 self.tree.append(node)
             level = level_x
         self.root = self.tree[-1]
-        #print(self.tree)
-        #print(len(self.tree))
         return self.tree
 
     def recover(self, leaf, proof):

@@ -52,34 +52,34 @@ class TestNipKeyStore(TimedTestCase):
         worker_nfc = self.central.service_workers[0]
         proof1 = machine1.keytree.create_proof()
         proof2 = machine2.keytree.create_proof()
-
-        self.assertTrue(
-            self.timed(
-                "machine.authenticate_device (size=8)",
-                machine1.authenticate_device,
-                proof2,
-                machine2.keytree.current_node.hashcombo(),
-                machine2.keytree.root.hashcombo(),
-                machine2.keytree.signbytes,
+        for _ in range(0,10):
+            self.assertTrue(
+                self.timed(
+                    "machine.authenticate_device (size=8)",
+                    machine1.authenticate_device,
+                    proof2,
+                    machine2.keytree.current_node.hashcombo(),
+                    machine2.keytree.root.hashcombo(),
+                    machine2.keytree.signbytes,
+                )
+            )    
+            self.assertTrue(
+                self.timed(
+                    "machine2.authenticate_device (size=8)",
+                    machine2.authenticate_device,
+                    proof1,
+                    machine1.keytree.current_node.hashcombo(),
+                    machine1.keytree.root.hashcombo(),
+                    machine1.keytree.signbytes,
+                )
             )
-        )    
-        self.assertTrue(
-            self.timed(
-                "machine2.authenticate_device (size=8)",
-                machine2.authenticate_device,
-                proof1,
-                machine1.keytree.current_node.hashcombo(),
-                machine1.keytree.root.hashcombo(),
-                machine1.keytree.signbytes,
+            self.assertTrue(
+                self.timed(
+                    "machine.authenticate_worker (size=8)",
+                    machine1.authenticate_worker,
+                    worker_nfc,
+                )
             )
-        )
-        self.assertTrue(
-            self.timed(
-                "machine.authenticate_worker (size=8)",
-                machine1.authenticate_worker,
-                worker_nfc,
-            )
-        )
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
