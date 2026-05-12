@@ -78,13 +78,21 @@ class SimDevice:
     #Necesairy? 
 
     #Handle incoming transmissions
-    def receive():
-        return
+    def receive(self, crypteddata):
+        rawdata = self.session_key.decrypt("domini protege me, dum impios interficio".encode('utf-8'), crypteddata, associated_data=None)
+        print(rawdata)
+        return True
 
     #Send datapackets to connected device
-    def send(self, dev, data):
-        return
+    def send(self, dev):
+        if (self.session_key != None):
+            data = ""
+            with open("data_to_send1.txt") as f:
+                for line in f:
+                    data += line
+            crypt = self.session_key.encrypt("domini protege me, dum impios interficio".encode('utf-8'), data.encode('utf-8'), associated_data=None)
+            #print(crypt)
+            dev.receive(crypt)
+            return True
+        return False
     
-    #"simulated" heartbeat to other devices
-    def heartbeat():
-        return

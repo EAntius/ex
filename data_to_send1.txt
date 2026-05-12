@@ -1,0 +1,223 @@
+MEDICAL LOGS - TEST DATA ONLY (FICTIONAL)
+
+Log ID: 0001
+Date: 2025-01-03a
+Patient ID: TEST-001
+Age: 45
+Sex: Female
+Visit Type: Routine Checkup
+Symptoms: Mild fatigue
+Diagnosis: No acute findings
+Treatment: Advised improved sleep hygiene and balanced diet
+Notes: Follow-up in 12 months
+
+Log ID: 0002
+Date: 2025-01-05
+Patient ID: TEST-002
+Age: 62
+Sex: Male
+Visit Type: Emergency
+Symptoms: Chest pain, shortness of breath
+Diagnosis: Stable angina
+Treatment: Nitroglycerin administered, beta-blocker prescribed
+Notes: Referred to cardiology
+
+Log ID: 0003
+Date: 2025-01-08
+Patient ID: TEST-003
+Age: 29
+Sex: Female
+Visit Type: Outpatient
+Symptoms: Sore throat, fever (38.5C)
+Diagnosis: Acute viral pharyngitis
+Treatment: Rest, fluids, acetaminophen
+Notes: No antibiotics prescribed
+
+Log ID: 0004
+Date: 2025-01-10
+Patient ID: TEST-004
+Age: 71
+Sex: Male
+Visit Type: Follow-up
+Symptoms: Persistent knee pain
+Diagnosis: Osteoarthritis
+Treatment: NSAIDs, physiotherapy recommended
+Notes: Consider imaging if symptoms worsen
+
+Log ID: 0005
+Date: 2025-01-14
+Patient ID: TEST-005
+Age: 52
+Sex: Female
+Visit Type: Screening
+Symptoms: None
+Diagnosis: Elevated blood glucose
+Treatment: Lifestyle modification advised
+Notes: Possible prediabetes, repeat labs in 3 months
+
+Log ID: 0006
+Date: 2025-01-18
+Patient ID: TEST-006
+Age: 34
+Sex: Male
+Visit Type: Urgent Care
+Symptoms: Laceration on left hand
+Diagnosis: Minor soft tissue injury
+Treatment: Wound cleaned, sutures applied
+Notes: Tetanus status updated
+
+Log ID: 0007
+Date: 2025-01-22
+Patient ID: TEST-007
+Age: 58
+Sex: Female
+Visit Type: Specialist Visit
+Symptoms: Blurred vision
+Diagnosis: Early-stage cataracts
+Treatment: Monitoring
+Notes: Annual ophthalmology follow-up
+
+Log ID: 0008
+Date: 2025-01-26
+Patient ID: TEST-008
+Age: 41
+Sex: Male
+Visit Type: Routine Checkup
+Symptoms: None
+Diagnosis: Hypertension (Stage 1)
+Treatment: ACE inhibitor initiated
+Notes: Home blood pressure monitoring advised
+
+Log ID: 0009
+Date: 2025-02-01
+Patient ID: TEST-009
+Age: 26
+Sex: Female
+Visit Type: Outpatient
+Symptoms: Abdominal pain, nausea
+Diagnosis: Gastroenteritis
+Treatment: Oral rehydration, antiemetic
+Notes: Symptoms expected to resolve in 48 hours
+
+Log ID: 0010
+Date: 2025-02-04
+Patient ID: TEST-010
+Age: 67
+Sex: Male
+Visit Type: Follow-up
+Symptoms: Shortness of breath on exertion
+Diagnosis: Chronic obstructive pulmonary disease (COPD)
+Treatment: Inhaled bronchodilator
+Notes: Smoking cessation reinforced
+
+Log ID: 0011
+Date: 2025-02-07
+Patient ID: TEST-011
+Age: 38
+Sex: Female
+Visit Type: Mental Health
+Symptoms: Anxiety, insomnia
+Diagnosis: Generalized anxiety disorder
+Treatment: Cognitive behavioral therapy referral
+Notes: No medication initiated at this time
+
+Log ID: 0012
+Date: 2025-02-10
+Patient ID: TEST-012
+Age: 50
+Sex: Male
+Visit Type: Screening
+Symptoms: None
+Diagnosis: Hyperlipidemia
+Treatment: Statin prescribed
+Notes: Dietary counseling provided
+
+Log ID: 0013
+Date: 2025-02-14
+Patient ID: TEST-013
+Age: 22
+Sex: Female
+Visit Type: Urgent Care
+Symptoms: Ankle pain after fall
+Diagnosis: Ankle sprain
+Treatment: RICE protocol
+Notes: X-ray negative for fracture
+
+Log ID: 0014
+Date: 2025-02-18
+Patient ID: TEST-014
+Age: 64
+Sex: Male
+Visit Type: Oncology Follow-up
+Symptoms: None
+Diagnosis: History of colon cancer, remission
+Treatment: Surveillance only
+Notes: Next colonoscopy in 1 year
+
+Log ID: 0015
+Date: 2025-02-21
+Patient ID: TEST-015
+Age: 47
+Sex: Female
+Visit Type: Outpatient
+Symptoms: Frequent headaches
+Diagnosis: Tension-type headache
+Treatment: Stress management, NSAIDs
+Notes: Monitor frequency and triggers
+
+Log ID: 0016
+Date: 2025-02-25
+Patient ID: TEST-016
+Age: 31
+Sex: Male
+Visit Type: Routine Checkup
+Symptoms: None
+Diagnosis: Healthy
+Treatment: None
+Notes: Continue regular exercise
+
+Log ID: 0017
+Date: 2025-03-01
+Patient ID: TEST-017
+Age: 59
+Sex: Female
+Visit Type: Emergency
+Symptoms: Sudden weakness on right side
+Diagnosis: Transient ischemic attack (TIA)
+Treatment: Antiplatelet therapy initiated
+Notes: Admitted for observation
+
+Log ID: 0018
+Date: 2025-03-05
+Patient ID: TEST-018
+Age: 43
+Sex: Male
+Visit Type: Dermatology
+Symptoms: Changing mole
+Diagnosis: Atypical nevus
+Treatment: Excisional biopsy
+Notes: Await pathology results
+
+Log ID: 0019
+Date: 2025-03-08
+Patient ID: TEST-019
+Age: 36
+Sex: Female
+Visit Type: Gynecology
+Symptoms: Irregular menstrual cycles
+Diagnosis: Suspected polycystic ovary syndrome
+Treatment: Hormonal evaluation ordered
+Notes: Follow-up in 6 weeks
+
+Log ID: 0020
+Date: 2025-03-12
+Patient ID: TEST-020
+Age: 70
+Sex: Male
+Visit Type: Follow-up
+Symptoms: Memory concerns
+Diagnosis: Mild cognitive impairment
+Treatment: Cognitive assessment scheduled
+Notes: Family counseling provided
+
+END OF FILE

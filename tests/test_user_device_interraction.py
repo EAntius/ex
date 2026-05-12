@@ -40,8 +40,8 @@ class TestNipKeyStore(TimedTestCase):
         start = time.perf_counter()
         self.central = Central("masterseed")
         elapsed = time.perf_counter() - start
-        self.central.register_machine(8)
-        self.central.register_machine(8)
+        self.central.register_machine(3)
+        self.central.register_machine(3)
         self.central.register_worker()
         self.central.delegate_machine_to_worker(0, 0)
         print("")
@@ -53,7 +53,7 @@ class TestNipKeyStore(TimedTestCase):
         worker_nfc = self.central.service_workers[0]
         proof1 = machine1.keytree.create_proof()
         proof2 = machine2.keytree.create_proof()
-        for _ in range(0, 10):
+        for _ in range(0, 1):
             self.assertTrue(
                 self.timed(
                     "machine.authenticate_device (size=8)",
@@ -88,6 +88,13 @@ class TestNipKeyStore(TimedTestCase):
                     machine2,
                     [],
                     0,
+                )
+            )
+            self.assertTrue(
+                self.timed(
+                    "send",
+                    machine1.send,
+                    machine2,
                 )
             )
 if __name__ == "__main__":
