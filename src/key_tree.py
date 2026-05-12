@@ -69,6 +69,7 @@ class KeyTree:
         self.root = self.tree[-1]
         return self.tree
 
+    #TODO after removing implemented
     def recover(self, leaf, proof):
         h = 2**self.height
         while (h != 1):

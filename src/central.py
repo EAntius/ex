@@ -8,8 +8,8 @@ class Central:
         self.machines = []
         self.service_workers = []
 
-    def register_machine(self):
-        kt = self.keystore.create_m_identity(8) 
+    def register_machine(self, height):
+        kt = self.keystore.create_m_identity(height) 
         simdev = SimDevice(kt)
         self.machines.append(simdev)
 

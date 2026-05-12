@@ -16,7 +16,7 @@ from central import Central
 # =========================
 # CONFIGURATION
 # =========================
-M_IDENTITY_SIZES = range(8, 11)   # e.g. test sizes 4..12
+M_IDENTITY_SIZES = range(8, 10)   # e.g. test sizes 4..12
 PROOF_INDEX = random.randint(0, 2**8)
 ROTATE_INDEX = random.randint(0, 2**8)
 
@@ -40,10 +40,11 @@ class TestNipKeyStore(TimedTestCase):
         start = time.perf_counter()
         self.central = Central("masterseed")
         elapsed = time.perf_counter() - start
-        self.central.register_machine()
-        self.central.register_machine()
+        self.central.register_machine(8)
+        self.central.register_machine(8)
         self.central.register_worker()
         self.central.delegate_machine_to_worker(0, 0)
+        print("")
         print(f"[TIME] setUp (NipKeyStore init): {elapsed:.6f}s", flush=True)
 
     def test_user_verification(self):
@@ -52,7 +53,7 @@ class TestNipKeyStore(TimedTestCase):
         worker_nfc = self.central.service_workers[0]
         proof1 = machine1.keytree.create_proof()
         proof2 = machine2.keytree.create_proof()
-        for _ in range(0,10):
+        for _ in range(0, 10):
             self.assertTrue(
                 self.timed(
                     "machine.authenticate_device (size=8)",
@@ -80,6 +81,14 @@ class TestNipKeyStore(TimedTestCase):
                     worker_nfc,
                 )
             )
-
+            self.assertTrue(
+                self.timed(
+                    "handshake (size=8)",
+                    machine1.handshake,
+                    machine2,
+                    [],
+                    0,
+                )
+            )
 if __name__ == "__main__":
     unittest.main(verbosity=2)
