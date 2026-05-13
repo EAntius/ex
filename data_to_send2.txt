@@ -1,0 +1,28 @@
+--- BEGIN SECURE CONTROL MESSAGE ---
+Protocol-Version: 1.0
+Message-Type: Device-Configuration-Update
+Sender-ID: CENTRAL-SERVER-CORE-A
+Recipient-Device-ID: INF-PUMP-07
+Timestamp: 2025-03-01T02:00:00Z
+Message-ID: MSG-889210
+
+Payload:
+A configuration update is required to align this device with updated clinical safety parameters.
+
+Update Details:
+- Target Firmware Version: 3.3.0
+- Update Category: Non-emergency, recommended
+- Purpose: Improve infusion accuracy and alarm handling
+
+Execution Instructions:
+1. Confirm no active medication delivery.
+2. Ensure battery level exceeds 50% or connect to external power.
+3. Acknowledge receipt of this message.
+4. Await secure, encrypted update package transfer.
+
+Security Information:
+- All update packages are digitally signed.
+- Integrity verification is mandatory before installation.
+- Automatic rollback will occur upon failure.
+
+--- END SECURE CONTROL MESSAGE ---

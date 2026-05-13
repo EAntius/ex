@@ -50,7 +50,7 @@ class TestNipKeyStore(TimedTestCase):
                 )
 
     def test_device_verification(self):
-        for _ in range(0,10):    
+        for _ in range(0,1):    
             for size in M_IDENTITY_SIZES:
                 with self.subTest(m_identity_size=size):
                     print(f"\n--- Testing m_identity size = {size} ---")

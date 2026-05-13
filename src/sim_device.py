@@ -75,8 +75,6 @@ class SimDevice:
             return True
         return False
 
-    #Necesairy? 
-
     #Handle incoming transmissions
     def receive(self, crypteddata):
         rawdata = self.session_key.decrypt("domini protege me, dum impios interficio".encode('utf-8'), crypteddata, associated_data=None)
@@ -84,10 +82,10 @@ class SimDevice:
         return True
 
     #Send datapackets to connected device
-    def send(self, dev):
+    def send(self, dev, path):
         if (self.session_key != None):
             data = ""
-            with open("data_to_send1.txt") as f:
+            with open(path) as f:
                 for line in f:
                     data += line
             crypt = self.session_key.encrypt("domini protege me, dum impios interficio".encode('utf-8'), data.encode('utf-8'), associated_data=None)

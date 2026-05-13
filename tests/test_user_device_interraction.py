@@ -95,6 +95,15 @@ class TestNipKeyStore(TimedTestCase):
                     "send",
                     machine1.send,
                     machine2,
+                    "data_to_send1.txt",
+                )
+            )
+            self.assertTrue(
+                self.timed(
+                    "send",
+                    machine1.send,
+                    machine2,
+                    "data_to_send2.txt",
                 )
             )
 if __name__ == "__main__":
