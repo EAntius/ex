@@ -43,5 +43,5 @@ def main():
     # -----------------------------------------------------------------------------
     with open("asorted_res", "a", encoding="utf-8") as f:
         for r in results:
-            f.write(f"{r['operation']} (size={r['size']}): avg={r['average_time']:.6f}s\ns")
+            f.write(f"{r['operation']} (size={r['size']}): avg={r['average_time']:.6f}s\n")
 main()
