@@ -29,7 +29,10 @@ palcom-trust-key-artifact
 palcom-trust-key-artifact.zip
 package-lock.json
 node_modules/
-
+results.txt
+tests/__pycache__/
+tests/*.pyc
+tests/*.txt
 
 
 # PyInstaller
