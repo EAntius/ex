@@ -21,17 +21,25 @@ class SimDevice:
         self.worker.remove(id)
 
     def authenticate_device(self, proof, current_hash, root, sig):
-        if self.keytree.device_verify(sig, root) and self.keytree.validate_proof(proof, current_hash, root):
-            return True
-        else:
+        try:    
+            if self.keytree.device_verify(sig, root) and self.keytree.validate_proof(proof, current_hash, root):
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(f"Device authentication error: {e}")
             return False
         
     def authenticate_worker(self, nfc_credential):
-        if self.keytree.worker_verify(nfc_credential.identity['issuer']['ca_id'], nfc_credential.identity['issuer']['signature'], nfc_credential.identity['subject']['tag_id']) and nfc_credential.identity['subject']['tag_id'] in self.worker:
-            return True
-        else:
+        try:
+            if self.keytree.worker_verify(nfc_credential.identity['issuer']['ca_id'], nfc_credential.identity['issuer']['signature'], nfc_credential.identity['subject']['tag_id']) and nfc_credential.identity['subject']['tag_id'] in self.worker:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(f"Worker authentication error: {e}")
             return False
-
+        
     def verify_nonce(self, enc_nonce, adder_nonce):
         if (self.session_key != None and self.session_key.decrypt(adder_nonce, enc_nonce, associated_data=None) == self.nonce):
             return True
@@ -78,7 +86,6 @@ class SimDevice:
     #Handle incoming transmissions
     def receive(self, crypteddata):
         rawdata = self.session_key.decrypt("domini protege me, dum impios interficio".encode('utf-8'), crypteddata, associated_data=None)
-        print(rawdata)
         return True
 
     #Send datapackets to connected device

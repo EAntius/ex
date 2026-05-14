@@ -93,19 +93,27 @@ class KeyTree:
         return res
 
     def validate_proof(self, proof, leafhash, roothash):
-        h = leafhash
-        for p_hash, p_isLeft in reversed(proof):
-            if (p_isLeft):
-                h = hashlib.sha3_512(p_hash + h).digest()                
-            else:
-                h = hashlib.sha3_512(h + p_hash).digest()   
-        return h == roothash
+        try:
+            h = leafhash
+            for p_hash, p_isLeft in reversed(proof):
+                if (p_isLeft):
+                    h = hashlib.sha3_512(p_hash + h).digest()                
+                else:
+                    h = hashlib.sha3_512(h + p_hash).digest()   
+            return h == roothash
+        except Exception as e:
+            print(f"Proof validation error: {e}")
+            return False
 
     def device_verify(self, sig, roothash):
-        isvalid = Dilithium5.verify(self.ca_public, roothash, sig)
-        if (isvalid):
-            return True
-        return False
+        try:    
+            isvalid = Dilithium5.verify(self.ca_public, roothash, sig)
+            if (isvalid):
+                return True
+            return False
+        except Exception as e:
+            print(f"Verification error: {e}")
+            return False
 
     def rotate(self, idx):
         #Temporary version

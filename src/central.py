@@ -21,4 +21,8 @@ class Central:
         machine = self.machines[machine_idx]
         worker = self.service_workers[worker_idx]
         machine.addworker(worker.identity['subject']['tag_id'])
-        
+    
+    def remove_worker_from_machine(self, machine_idx, worker_idx):
+        machine = self.machines[machine_idx]
+        worker = self.service_workers[worker_idx]
+        machine.removeworker(worker.identity['subject']['tag_id'])
