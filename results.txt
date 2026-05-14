@@ -1074,3 +1074,49 @@ send: 0.0035340619942871854
 send: 0.00014912599726812914
 machine.authenticate_worker denial (size=8): 0.019561821995011996
 machine.authenticate_worker denial (size=8): 0.018290095998963807
+create_m_identity_k1 (size=8): 9.237912734999554
+create_m_identity_k2 (size=8): 9.300108749994251
+k1.device_verify(k2) (size=8): 0.018175958000938408
+k2.device_verify(k1) (size=8): 0.01833397900190903
+k1.create_proof (size=8): 1.5956997231114656e-05
+k2.create_proof (size=8): 7.504997483920306e-06
+k1.validate_proof  (size=8): 2.7467998734209687e-05
+k2.validate_proof (size=8): 1.4043005649000406e-05
+create_m_identity_k1 (size=9): 19.051318418998562
+create_m_identity_k2 (size=9): 19.307924593995267
+k1.device_verify(k2) (size=9): 0.019353768999280874
+k2.device_verify(k1) (size=9): 0.019716208000318147
+k1.create_proof (size=9): 1.5312005416490138e-05
+k2.create_proof (size=9): 1.1415999324526638e-05
+k1.validate_proof  (size=9): 3.328599996166304e-05
+k2.validate_proof (size=9): 1.9794999388977885e-05
+create_m_identity_k1 (size=10): 37.66553845300223
+create_m_identity_k2 (size=10): 37.58063543299795
+k1.device_verify(k2) (size=10): 0.018404308997560292
+k2.device_verify(k1) (size=10): 0.020505247004621197
+k1.create_proof (size=10): 2.173500251956284e-05
+k2.create_proof (size=10): 1.355299900751561e-05
+k1.validate_proof  (size=10): 3.445800393819809e-05
+k2.validate_proof (size=10): 2.575499820522964e-05
+create_m_identity_k1 (size=8): 9.25559072499891
+create_m_identity_k1 (size=9): 18.460007875000883
+create_m_identity_k1 (size=10): 37.13793395200628
+machine.authenticate_device denial (size=8): 0.018068445999233518
+machine.authenticate_device denial (size=8): 0.00041246400360250846
+machine.authenticate_device (size=8): 0.017570784002600703
+machine2.authenticate_device (size=8): 0.01762849600345362
+handshake (size=8): 0.06010750099812867
+machine.authenticate_device denial (size=8): 5.096999666420743e-05
+machine.authenticate_device (size=8): 0.018798680997861084
+machine2.authenticate_device (size=8): 0.01856068800407229
+handshake (size=8): 0.0503135149992886
+send: 0.014921041998604778
+send: 0.0009519540035398677
+machine.authenticate_worker (size=8): 0.01912115199957043
+machine.authenticate_device (size=8): 0.018672446996788494
+machine2.authenticate_device (size=8): 0.017931795999174938
+handshake (size=8): 0.05036727900005644
+send: 0.002814362000208348
+send: 0.00020659500296460465
+machine.authenticate_worker denial (size=8): 0.02008221500000218
+machine.authenticate_worker denial (size=8): 0.01875880599982338
