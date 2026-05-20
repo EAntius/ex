@@ -97,7 +97,7 @@ class NipKeyStore:
         self.public_enc = public_enc
         self.private_enc = private_enc
         return
-
+    
     def create_m_identity(self, height):
         self.generate_keys(height)
         self.hash_list()

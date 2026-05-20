@@ -44,24 +44,24 @@ class TestNipKeyStore(TimedTestCase):
         for size in M_IDENTITY_SIZES:
             with self.subTest(m_identity_size=size):
                 self.timed(
-                    f"create_m_identity_k1 (size={size})",
+                    f"create_m_identity (size={size})",
                     self.store.create_m_identity,
                     size
                 )
 
     def test_device_verification(self):
-        for _ in range(0,1):    
+        for _ in range(0,100):    
             for size in M_IDENTITY_SIZES:
                 with self.subTest(m_identity_size=size):
                     print(f"\n--- Testing m_identity size = {size} ---")
 
                     k1 = self.timed(
-                        f"create_m_identity_k1 (size={size})",
+                        f"create_m_identity (size={size})",
                         self.store.create_m_identity,
                         size
                     )
                     k2 = self.timed(
-                        f"create_m_identity_k2 (size={size})",
+                        f"create_m_identity (size={size})",
                         self.store.create_m_identity,
                         size
                     )
@@ -69,7 +69,7 @@ class TestNipKeyStore(TimedTestCase):
                     # Device verification
                     self.assertTrue(
                         self.timed(
-                            f"k1.device_verify(k2) (size={size})",
+                            f"device_verify (size={size})",
                             k1.device_verify,
                             k2.signbytes,
                             k2.root.hashcombo()
@@ -78,7 +78,7 @@ class TestNipKeyStore(TimedTestCase):
 
                     self.assertTrue(
                         self.timed(
-                            f"k2.device_verify(k1) (size={size})",
+                            f"device_verify (size={size})",
                             k2.device_verify,
                             k1.signbytes,
                             k1.root.hashcombo()
@@ -86,12 +86,12 @@ class TestNipKeyStore(TimedTestCase):
                     )
 
                     # Proof validation
-                    k1p = self.timed(f"k1.create_proof (size={size})", k1.create_proof)
-                    k2p = self.timed(f"k2.create_proof (size={size})", k2.create_proof)
+                    k1p = self.timed(f"create_proof (size={size})", k1.create_proof)
+                    k2p = self.timed(f"create_proof (size={size})", k2.create_proof)
 
                     self.assertTrue(
                         self.timed(
-                            f"k1.validate_proof  (size={size})",
+                            f"validate_proof  (size={size})",
                             k1.validate_proof,
                             k2p,
                             k2.current_node.hashcombo(),
@@ -101,7 +101,7 @@ class TestNipKeyStore(TimedTestCase):
 
                     self.assertTrue(
                         self.timed(
-                            f"k2.validate_proof (size={size})",
+                            f"validate_proof (size={size})",
                             k2.validate_proof,
                             k1p,
                             k1.current_node.hashcombo(),
